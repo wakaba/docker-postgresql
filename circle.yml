@@ -1,17 +1,28 @@
-machine:
-  services:
-    - docker
-dependencies:
-  override:
-    - docker info
-    - docker build -t quay.io/wakaba/postgresql .
-test:
-  override:
-    - docker run quay.io/wakaba/postgresql ls
-deployment:
-  hub:
-    branch: master
-    commands:
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS quay.io
-      - docker push quay.io/wakaba/postgresql
-      - curl $BWALL_URL -X POST
+{
+   "dependencies" : {
+      "override" : [
+         "docker info",
+         "docker build -t quay.io/wakaba/postgresql ."
+      ]
+   },
+   "deployment" : {
+      "master" : {
+         "branch" : "master",
+         "commands" : [
+            "docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS quay.io",
+            "docker push quay.io/wakaba/postgresql",
+            "curl -sSLf $BWALL_URL -X POST"
+         ]
+      }
+   },
+   "machine" : {
+      "services" : [
+         "docker"
+      ]
+   },
+   "test" : {
+      "override" : [
+         "docker run quay.io/wakaba/postgresql ls"
+      ]
+   }
+}
