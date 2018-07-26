@@ -3,6 +3,7 @@
     "docker-build": "quay.io/wakaba/postgresql",
     "tests": [
       "docker run quay.io/wakaba/postgresql ls"
-    ]
+    ],
+    "merger": true
   }
 }
