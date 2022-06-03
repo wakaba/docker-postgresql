@@ -4,6 +4,8 @@
     "tests": [
       "docker run quay.io/wakaba/postgresql ls"
     ],
-    "merger": true
+    "merger": true,
+    "gaa": true,
+    "autobuild": true
   }
 }
